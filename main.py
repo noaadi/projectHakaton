@@ -2,11 +2,13 @@ import pygame
 import os
 from game_engine import GameEngine
 from games.wordle.wordle_game import WordleGame
-from games.snake.snake_game import SnakeGame
+from games.snake.snake_game import SnakeGame  # Import Snake game
+from games.trivia.trivia_game import TriviaGame  # Import Trivia game
 
 class MainMenu:
     def __init__(self, screen):
         self.screen = screen
+
 
         # 🎮 Load pixelated retro font
         self.font = pygame.font.Font(os.path.join("assets", "press_start.ttf"), 20)
@@ -19,6 +21,7 @@ class MainMenu:
 
         self.wordle_button = pygame.Rect(240, 200, 320, 60)
         self.snake_button = pygame.Rect(240, 300, 320, 60)
+        self.trivia_button = pygame.Rect(300, 400, 200, 60)
         self.shutdown_button = pygame.Rect(750, 10, 40, 40) 
 
 
@@ -28,6 +31,8 @@ class MainMenu:
                 return "Wordle"
             elif self.snake_button.collidepoint(event.pos):
                 return "Snake"
+            elif self.trivia_button.collidepoint(event.pos):
+                return "Trivia"
             elif self.shutdown_button.collidepoint(event.pos):
                 pygame.quit()
                 os._exit(0)  
@@ -35,7 +40,10 @@ class MainMenu:
     def render(self):
         self.screen.fill(self.bg_color)
 
-        # Frame border (GameBoy screen edge)
+
+        pygame.draw.rect(self.screen, (50, 150, 250), self.wordle_button, border_radius=10)
+        pygame.draw.rect(self.screen, (50, 250, 100), self.snake_button, border_radius=10)
+        pygame.draw.rect(self.screen, (136, 150, 69), self.trivia_button, border_radius=10)
         pygame.draw.rect(self.screen, (100, 120, 100), (50, 40, 700, 520), 8, border_radius=15)
 
         # Buttons
@@ -58,7 +66,10 @@ class MainMenu:
         # Button Text
         wordle_text = self.font.render("PLAY WORDLE", True, self.text_color)
         snake_text = self.font.render("PLAY SNAKE", True, self.text_color)
+        trivia_text = self.font.render("Play Trivia", True, (255, 255, 255))
 
+        trivia_text_rect = trivia_text.get_rect(center=self.trivia_button.center)
+        self.screen.blit(trivia_text, trivia_text_rect)
         self.screen.blit(wordle_text, wordle_text.get_rect(center=self.wordle_button.center))
         self.screen.blit(snake_text, snake_text.get_rect(center=self.snake_button.center))
 
@@ -90,7 +101,13 @@ if __name__ == "__main__":
                 pygame.mixer.music.stop()
                 engine.load_game(SnakeGame)
                 engine.run()
+
+            elif selected_game == "Trivia":
+                pygame.mixer.music.stop()
+                engine.load_game(TriviaGame)
+                engine.run()
                 pygame.mixer.music.play(-1)
+
 
         menu.render()
         pygame.display.flip()
