@@ -2,14 +2,18 @@ import pygame
 import random
 from games.game import Game
 
+
 class WordleGame(Game):
     def __init__(self, screen):
         super().__init__(screen)
         self.word_list = ["ONE", "TWO", "THREE"]
         self.target_word = random.choice(self.word_list)
+        self.already_attempts = []
+        self.max_attempts = 6
         self.user_input = ""
         self.font = pygame.font.Font(None, 50)
         self.message = "Guess the word!"
+        self.running = True
 
         # Return button
         self.return_button = pygame.Rect(10, 10, 180, 50)
@@ -22,7 +26,10 @@ class WordleGame(Game):
                 self.running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                if self.user_input.upper() == self.target_word:
+                if len(self.user_input) == len(self.target_word):
+                    self.already_attempts.append(self.user_input.upper())
+                    self.user_input = ""
+                if self.already_attempts[-1] == self.target_word:
                     self.message = "You Win!"
                     self.running = False
                 else:
