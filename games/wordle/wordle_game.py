@@ -2,21 +2,25 @@ import pygame
 import random
 from games.game import Game
 
-
 class WordleGame(Game):
-    """Implements the Wordle game logic."""
-
     def __init__(self, screen):
         super().__init__(screen)
-        self.word_list = ["APPLE", "BANANA", "CHERRY"]
+        self.word_list = ["ONE", "TWO", "THREE"]
         self.target_word = random.choice(self.word_list)
         self.user_input = ""
         self.font = pygame.font.Font(None, 50)
         self.message = "Guess the word!"
 
+        # Return button
+        self.return_button = pygame.Rect(10, 10, 180, 50)
+        self.button_font = pygame.font.Font(None, 36)
+
     def handle_event(self, event):
-        """Handles user input for word guessing."""
-        if event.type == pygame.KEYDOWN:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.return_button.collidepoint(event.pos):
+                self.return_to_menu = True
+                self.running = False
+        elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 if self.user_input.upper() == self.target_word:
                     self.message = "You Win!"
@@ -30,17 +34,21 @@ class WordleGame(Game):
                 self.user_input += event.unicode.upper()
 
     def update(self):
-        """Updates the game logic (if needed)."""
         pass
 
     def render(self):
-        """Renders the game screen."""
         self.screen.fill((0, 0, 0))
 
-        # Render user input
-        text_surface = self.font.render(self.user_input, True, (255, 255, 255))
-        self.screen.blit(text_surface, (350, 250))
+        # Render guess input
+        input_surface = self.font.render(self.user_input, True, (255, 255, 255))
+        self.screen.blit(input_surface, (350, 250))
 
         # Render message
         message_surface = self.font.render(self.message, True, (255, 200, 0))
         self.screen.blit(message_surface, (300, 350))
+
+        # Draw Return to Menu button
+        pygame.draw.rect(self.screen, (180, 50, 50), self.return_button, border_radius=8)
+        btn_text = self.button_font.render("Return to Menu", True, (255, 255, 255))
+        btn_rect = btn_text.get_rect(center=self.return_button.center)
+        self.screen.blit(btn_text, btn_rect)

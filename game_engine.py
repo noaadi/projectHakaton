@@ -32,8 +32,10 @@ class GameEngine:
                 self.current_game.update()
                 self.current_game.render()
 
+                # 🧙 Detect return to menu
+                if self.current_game.return_to_menu:
+                    self.current_game = None
+                    return  # break out of game loop to return to main menu
+
             pygame.display.flip()
             self.clock.tick(60)
-
-        pygame.quit()
-        sys.exit()
