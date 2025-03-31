@@ -2,6 +2,7 @@ import pygame
 import random
 from games.game import Game
 
+
 class TriviaGame(Game):
     def __init__(self, screen):
         super().__init__(screen)
@@ -19,9 +20,29 @@ class TriviaGame(Game):
                 'answer': 0
             },
             {
+                'question': "Who won the Eurovision in 2018?",
+                'choices': ["Italy", "England", "Israel", "Russia"],
+                'answer': 2
+            },
+            {
+                'question': "How many bones do sharks have?",
+                'choices': ["17", "150", "206", "0"],
+                'answer': 3
+            },
+            {
                 'question': "What is the largest planet in our solar system?",
                 'choices': ["Earth", "Mars", "Jupiter", "Saturn"],
                 'answer': 2
+            },
+            {
+                'question': "What is the largest island?",
+                'choices': ["Greenland", "Madagascar","Honshu",  "New Guinea"],
+                'answer': 0
+            },
+            {
+                'question': "What is the highest mountain in the world?",
+                'choices': ["Everest", "Mount Hermon", "Godwin Austen", "Nuptse"],
+                'answer': 0
             },
             {
                 'question': "What is 5 + 7?",
@@ -155,14 +176,6 @@ class TriviaGame(Game):
             playagain_rect = playagain_text.get_rect(center=self.playagain_button.center)
             self.screen.blit(game_over_surface, (200, 250))  # Centered game over message
             self.screen.blit(playagain_text, playagain_rect)  # Centered Play Again button text
-
-            # Start of moving Return to Menu button below the Play Again button
-            return_button_position = pygame.Rect(300, 420, 250, 50)  # Below the Play Again button
-            pygame.draw.rect(self.screen, (240, 100, 60), return_button_position, border_radius=8)  # Warm red for "Return to Menu"
-            return_button_text = self.button_font.render("Return to Menu", True, (255, 255, 255))  # White text for the button
-            return_button_rect = return_button_text.get_rect(center=return_button_position.center)
-            self.screen.blit(return_button_text, return_button_rect)
-            # End of moving Return to Menu button below the Play Again button
 
         # Always show Return to Menu button at the top left of the screen during the game
         pygame.draw.rect(self.screen, (180, 50, 50), self.return_button, border_radius=8)
