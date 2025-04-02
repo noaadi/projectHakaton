@@ -20,7 +20,7 @@ class FlappyBird(Game):
         self.clock = pygame.time.Clock()
         self.game_over = False
         self.reset_game()
-
+        self.return_to_menu = False
         # Initialize sound effects
         self.ScoreSfx = pygame.mixer.Sound("assets/sfx/FlappyBirdScore.mp3")
         self.DeathSfx = pygame.mixer.Sound("assets/sfx/FlappyBirdDeath.mp3")
@@ -28,6 +28,10 @@ class FlappyBird(Game):
 
         # Particle effects (Explosion effect when the bird dies)
         self.particles = []
+
+        # return button
+        self.return_button = pygame.Rect(10, 10, 180, 50)
+        self.button_font = pygame.font.Font(None, 36)
 
     def reset_game(self):
         """Reset the game after the player loses."""
@@ -39,25 +43,28 @@ class FlappyBird(Game):
         self.pipe_speed = 5
         self.speed_multiplier = 1.0
         self.spawn_pipe()
-
+        self.return_to_menu = False
         # Reset particles
         self.particles = []
 
     def spawn_pipe(self):
         """Create a new pipe with a random gap size."""
-        pipe_height = random.randint(100, 400)
+        pipe_height = random.randint(50, 400)
         pipe_gap = random.randint(140, 200)  # Randomized gap between top and bottom pipe
         self.pipes.append([self.width, pipe_height, pipe_gap])
 
     def handle_event(self, event):
         """Handle player input."""
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.K_SPACE or event.type == pygame.MOUSEBUTTONDOWN:
                 if self.game_over:
                     self.reset_game()
                 else:
                     self.bird_velocity = self.jump_strength
                     self.JumpSfx.play()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.return_button.collidepoint(event.pos):
+                self.return_to_menu = True
         if event.type == pygame.QUIT:
             self.running = False
 
@@ -79,7 +86,7 @@ class FlappyBird(Game):
         for pipe in self.pipes:
             pipe[0] -= self.pipe_speed * self.speed_multiplier
 
-        # Remove pipes that have moved off screen
+        # Remove pipes that have moved off-screen
         if self.pipes[0][0] + self.pipe_width < 0:
             self.pipes.pop(0)
             self.spawn_pipe()
@@ -148,12 +155,18 @@ class FlappyBird(Game):
 
         # Score display
         score_text = self.font.render(f"Score: {self.score}", True, (255, 255, 255))
-        self.screen.blit(score_text, (10, 10))
+        self.screen.blit(score_text, (10, 75))
 
         # Game over text
         if self.game_over:
-            game_over_text = self.font.render("Game Over! Press Space to Restart", True, (255, 0, 0))
+            game_over_text = self.font.render("Game Over! Press Space To Restart", True, (255, 0, 0))
             self.screen.blit(game_over_text, (self.width // 4, self.height // 2))
+
+        # Draw "Return to Menu" button
+        pygame.draw.rect(self.screen, (180, 50, 50), self.return_button, border_radius=8)
+        btn_text = self.button_font.render("Return to Menu", True, (255, 255, 255))
+        btn_rect = btn_text.get_rect(center=self.return_button.center)
+        self.screen.blit(btn_text, btn_rect)
 
         pygame.display.flip()
 
