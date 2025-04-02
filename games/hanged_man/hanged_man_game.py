@@ -78,7 +78,7 @@ class Hanged_man(Game):
         if guess in self.word:
             self.in_word.add(guess)
             self.change_sub_word(guess)
-            print(self.sub_word)
+
         else:
             self.guessed.add(guess)
             self.attempts-=1
