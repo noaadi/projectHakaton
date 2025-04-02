@@ -23,7 +23,7 @@ class MainMenu:
 
         self.wordle_button = pygame.Rect(240, 200, 320, 60)
         self.snake_button = pygame.Rect(240, 300, 320, 60)
-        self.trivia_button = pygame.Rect(300, 400, 200, 60)
+        self.trivia_button = pygame.Rect(240, 400, 320, 60)
         self.flappy_bird_button = pygame.Rect(240, 500, 320, 60)
         self.shutdown_button = pygame.Rect(750, 10, 40, 40) 
 
@@ -46,10 +46,11 @@ class MainMenu:
         self.screen.fill(self.bg_color)
 
 
-        pygame.draw.rect(self.screen, (50, 150, 250), self.wordle_button, border_radius=10)
-        pygame.draw.rect(self.screen, (50, 250, 100), self.snake_button, border_radius=10)
-        pygame.draw.rect(self.screen, (136, 150, 69), self.trivia_button, border_radius=10)
-        pygame.draw.rect(self.screen, (50, 250, 100), self.flappy_bird_button, border_radius=10)
+        pygame.draw.rect(self.screen, self.btn_fill, self.wordle_button, border_radius=10)
+        pygame.draw.rect(self.screen, self.btn_fill, self.snake_button, border_radius=10)
+        pygame.draw.rect(self.screen, self.btn_fill, self.trivia_button, border_radius=10)
+        pygame.draw.rect(self.screen, self.btn_fill, self.flappy_bird_button, border_radius=10)
+
         pygame.draw.rect(self.screen, (100, 120, 100), (50, 40, 700, 520), 8, border_radius=15)
 
         # Buttons
@@ -58,6 +59,8 @@ class MainMenu:
 
         pygame.draw.rect(self.screen, self.btn_fill, self.flappy_bird_button, border_radius=5)
         pygame.draw.rect(self.screen, self.btn_border, self.flappy_bird_button, 3, border_radius=5)
+        pygame.draw.rect(self.screen, self.btn_fill, self.trivia_button, border_radius=5)
+        pygame.draw.rect(self.screen, self.btn_border, self.trivia_button, 3, border_radius=5)
 
         pygame.draw.rect(self.screen, self.btn_fill, self.snake_button, border_radius=5)
         pygame.draw.rect(self.screen, self.btn_border, self.snake_button, 3, border_radius=5)
@@ -75,7 +78,7 @@ class MainMenu:
         # Button Text
         wordle_text = self.font.render("PLAY WORDLE", True, self.text_color)
         snake_text = self.font.render("PLAY SNAKE", True, self.text_color)
-        trivia_text = self.font.render("Play Trivia", True, (255, 255, 255))
+        trivia_text = self.font.render("Play Trivia", True, self.text_color)
         flappy_bird_text = self.font.render("PLAY FLAPPY BIRD", True, self.text_color)
 
         trivia_text_rect = trivia_text.get_rect(center=self.trivia_button.center)
