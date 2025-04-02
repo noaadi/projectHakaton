@@ -55,8 +55,8 @@ class FlappyBird(Game):
 
     def handle_event(self, event):
         """Handle player input."""
-        if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-            if event.type == pygame.K_SPACE or event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
                 if self.game_over:
                     self.reset_game()
                 else:
