@@ -4,6 +4,8 @@ from game_engine import GameEngine
 from games.wordle.wordle_game import WordleGame
 from games.snake.snake_game import SnakeGame  # Import Snake game
 from games.trivia.trivia_game import TriviaGame  # Import Trivia game
+from games.flappy_bird.flappy_bird import FlappyBird
+
 
 class MainMenu:
     def __init__(self, screen):
@@ -22,6 +24,7 @@ class MainMenu:
         self.wordle_button = pygame.Rect(240, 200, 320, 60)
         self.snake_button = pygame.Rect(240, 300, 320, 60)
         self.trivia_button = pygame.Rect(240, 400, 320, 60)
+        self.flappy_bird_button = pygame.Rect(240, 500, 320, 60)
         self.shutdown_button = pygame.Rect(750, 10, 40, 40) 
 
 
@@ -33,9 +36,11 @@ class MainMenu:
                 return "Snake"
             elif self.trivia_button.collidepoint(event.pos):
                 return "Trivia"
+            elif self.flappy_bird_button.collidepoint(event.pos):
+                return "Flappy bird"
             elif self.shutdown_button.collidepoint(event.pos):
                 pygame.quit()
-                os._exit(0)  
+                os._exit(0)
 
     def render(self):
         self.screen.fill(self.bg_color)
@@ -44,12 +49,16 @@ class MainMenu:
         pygame.draw.rect(self.screen, self.btn_fill, self.wordle_button, border_radius=10)
         pygame.draw.rect(self.screen, self.btn_fill, self.snake_button, border_radius=10)
         pygame.draw.rect(self.screen, self.btn_fill, self.trivia_button, border_radius=10)
+        pygame.draw.rect(self.screen, self.btn_fill, self.flappy_bird_button, border_radius=10)
+
         pygame.draw.rect(self.screen, (100, 120, 100), (50, 40, 700, 520), 8, border_radius=15)
 
         # Buttons
         pygame.draw.rect(self.screen, self.btn_fill, self.wordle_button, border_radius=5)
         pygame.draw.rect(self.screen, self.btn_border, self.wordle_button, 3, border_radius=5)
 
+        pygame.draw.rect(self.screen, self.btn_fill, self.flappy_bird_button, border_radius=5)
+        pygame.draw.rect(self.screen, self.btn_border, self.flappy_bird_button, 3, border_radius=5)
         pygame.draw.rect(self.screen, self.btn_fill, self.trivia_button, border_radius=5)
         pygame.draw.rect(self.screen, self.btn_border, self.trivia_button, 3, border_radius=5)
 
@@ -70,11 +79,14 @@ class MainMenu:
         wordle_text = self.font.render("PLAY WORDLE", True, self.text_color)
         snake_text = self.font.render("PLAY SNAKE", True, self.text_color)
         trivia_text = self.font.render("Play Trivia", True, self.text_color)
+        flappy_bird_text = self.font.render("PLAY FLAPPY BIRD", True, self.text_color)
 
         trivia_text_rect = trivia_text.get_rect(center=self.trivia_button.center)
         self.screen.blit(trivia_text, trivia_text_rect)
         self.screen.blit(wordle_text, wordle_text.get_rect(center=self.wordle_button.center))
         self.screen.blit(snake_text, snake_text.get_rect(center=self.snake_button.center))
+        self.screen.blit(flappy_bird_text, wordle_text.get_rect(center=self.flappy_bird_button.center))
+
 
 if __name__ == "__main__":
     pygame.init()
@@ -108,6 +120,12 @@ if __name__ == "__main__":
             elif selected_game == "Trivia":
                 pygame.mixer.music.stop()
                 engine.load_game(TriviaGame)
+                engine.run()
+                pygame.mixer.music.play(-1)
+
+            elif selected_game == "Flappy bird":
+                pygame.mixer.music.stop()
+                engine.load_game(FlappyBird)
                 engine.run()
                 pygame.mixer.music.play(-1)
 
