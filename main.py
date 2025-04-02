@@ -5,6 +5,7 @@ from games.wordle.wordle_game import WordleGame
 from games.snake.snake_game import SnakeGame
 from games.trivia.trivia_game import TriviaGame
 from games.flappy_bird.flappy_bird import FlappyBird
+from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 
 
 class MainMenu:
@@ -37,6 +38,7 @@ class MainMenu:
             ("SNAKE", SnakeGame),
             ("TRIVIA", TriviaGame),
             ("FLAPPY BIRD", FlappyBird),
+            ("TIC TAC TOE", TicTacToe),
         ]
 
         # this will store the buttons that show on screen
