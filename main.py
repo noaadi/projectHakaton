@@ -1,6 +1,7 @@
 import pygame
 import os
 from game_engine import GameEngine
+from games.hanged_man.hanged_man_game import Hanged_man
 from games.wordle.wordle_game import WordleGame
 from games.snake.snake_game import SnakeGame
 from games.trivia.trivia_game import TriviaGame
@@ -22,6 +23,7 @@ class MainMenu:
         self.btn_fill = (110, 140, 110)
         self.text_color = (30, 30, 30)
 
+
         # this is the red shutdown button on top right
         self.shutdown_button = pygame.Rect(750, 10, 40, 40)
 
@@ -39,6 +41,7 @@ class MainMenu:
             ("TRIVIA", TriviaGame),
             ("FLAPPY BIRD", FlappyBird),
             ("TIC TAC TOE", TicTacToe),
+            ("HANGED MAN", Hanged_man)
         ]
 
         # this will store the buttons that show on screen
@@ -68,6 +71,7 @@ class MainMenu:
             self.buttons.append((label, pygame.Rect(x, y, self.button_width, self.button_height)))
 
     def handle_event(self, event):
+
         # if left click only
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             x, y = event.pos
@@ -96,6 +100,7 @@ class MainMenu:
         # paint background color
         self.screen.fill(self.bg_color)
 
+
         # draw outer border box
         pygame.draw.rect(self.screen, (100, 120, 100), (50, 40, 700, 520), 8, border_radius=15)
 
@@ -103,6 +108,7 @@ class MainMenu:
         title_font = pygame.font.Font(os.path.join("assets", "press_start.ttf"), 24)
         title = title_font.render("GAMEBOY MENU", True, self.text_color)
         self.screen.blit(title, title.get_rect(center=(400, 100)))
+
 
         # draw all game buttons
         for label, rect in self.buttons:

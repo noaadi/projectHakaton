@@ -7,12 +7,12 @@ class TriviaGame(Game):
     def __init__(self, screen):
         super().__init__(screen)
         
-        # Questions and choices data
+        # here we write all the questions + answers. the "answer" is the correct option's index (0,1,2,3)
         self.questions = [
             {
                 'question': "What is the capital of France?",
                 'choices': ["Berlin", "Madrid", "Paris", "Rome"],
-                'answer': 2  # The index of the correct answer (0-based)
+                'answer': 2  
             },
             {
                 'question': "Who wrote '1984'?",
@@ -51,66 +51,71 @@ class TriviaGame(Game):
             }
         ]
         
-        self.current_question = 0
-        self.score = 0
-        self.running = True
-        self.font = pygame.font.Font(None, 50)
-        self.button_font = pygame.font.Font(None, 36)
-        self.message = "Answer the question!"
+        self.current_question = 0  # this tells us what question we are showing right now
+        self.score = 0             # how many points the player got
+        self.running = True        # when game is running, this is true
+        self.font = pygame.font.Font(None, 50)  # big font for questions
+        self.button_font = pygame.font.Font(None, 36)  # smaller font for buttons
+        self.message = "Answer the question!"  # this text shows on screen when you play
         
-        # Return button always in the top left corner
-        self.return_button = pygame.Rect(10, 10, 180, 50)
-
-        # Play Again button
-        self.playagain_button = pygame.Rect(300, 340, 250, 50)
-
-        # Button rectangles for choices
+        self.return_button = pygame.Rect(10, 10, 180, 50)  # red button to go back to main menu
+        self.playagain_button = pygame.Rect(300, 340, 250, 50)  # button that shows after game over
+        
+        # these 4 are the answer buttons
         self.choice_buttons = [
-            pygame.Rect(100, 200, 600, 50),  # Option 1
-            pygame.Rect(100, 270, 600, 50),  # Option 2
-            pygame.Rect(100, 340, 600, 50),  # Option 3
-            pygame.Rect(100, 410, 600, 50),  # Option 4
+            pygame.Rect(100, 200, 600, 50),
+            pygame.Rect(100, 270, 600, 50),
+            pygame.Rect(100, 340, 600, 50),
+            pygame.Rect(100, 410, 600, 50),
         ]
         
-        self.return_to_menu = False
+        self.return_to_menu = False  # used by the game engine to know we wanna go back
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
+            # check if we clicked the red return to menu button
             if self.return_button.collidepoint(event.pos):
                 self.return_to_menu = True
                 self.running = False
             
-            # Check if user clicked any answer button
+            # check if we clicked one of the 4 answer buttons
             for i, button in enumerate(self.choice_buttons):
                 if button.collidepoint(event.pos) and self.current_question < len(self.questions):
+                    # check if answer is correct
                     if i == self.questions[self.current_question]['answer']:
                         self.score += 1
                         self.message = "Correct!"
                     else:
                         self.message = "Incorrect!"
                     
+                    # go to next question
                     self.current_question += 1
+                    
+                    # if there are no more questions
                     if self.current_question >= len(self.questions):
                         self.message = f"Game Over! Final score: {self.score}/{len(self.questions)}"
-                        # Don't quit, just stay on the Game Over screen
                         self.running = False
-                        
+                        return  # super important!! this stops the click from pressing play again instantly
+
+        # this part checks if user clicks the "Play Again" button after game ended
         if self.current_question >= len(self.questions):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.playagain_button.collidepoint(event.pos):
-                    # Reset the game state to start over
+                    # restart everything
                     self.current_question = 0
                     self.score = 0
                     self.message = "Answer the question!"
                     self.running = True
                     
+        # ESC button = go back to menu anytime
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.return_to_menu = True
                 self.running = False
 
     def update(self):
-        pass
+        pass  # we don’t really need to update anything every frame in trivia
+
 
     def render(self):
         # Start of design changes
