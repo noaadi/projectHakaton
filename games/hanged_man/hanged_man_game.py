@@ -5,6 +5,25 @@ import random
 from games.game import Game
 
 
+"""# Hangman Game 🎮
+
+This is a simple hangman game I made using Python and Pygame. It's kind of like the classic hangman game, but with some graphics and buttons. You have to guess the word before the stickman gets fully drawn.
+
+## What's in the game?
+
+- You get a random word to guess
+- You can see which letters you already guessed
+- You only have 6 chances to guess wrong
+- If you win, you see a win screen. If you lose, you get a game over screen.
+- There's a button to try again or go back to the menu
+
+## How to run it
+
+1. First, make sure you have Python installed (preferably Python 3.8 or higher).
+2. Also install Pygame if you don’t have it yet:
+
+```bash
+pip install pygame"""
 
 
 
@@ -23,6 +42,13 @@ class Hanged_man(Game):
         self.in_word=set()
         self.attempts=6
         self.sub_word="_"*len(self.word)
+        letter1=random.choice(range(0, len(self.word)))
+        letter2=random.choice(range(0, len(self.word)))
+        while letter2==letter1:
+            letter2 = random.choice(range(0, len(self.word)))
+
+        self.guess_in_word(random.choice(self.word[letter1]))
+        self.guess_in_word(random.choice(self.word[letter2]))
         self.font = pygame.font.Font(os.path.join("assets", "press_start.ttf"), 20)
         self.game_over=False
         self.return_button = pygame.Rect(40, 10, 300, 50)
@@ -105,11 +131,17 @@ class Hanged_man(Game):
                 self.running = False
             if self.game_over and self.try_again_button.collidepoint(event.pos):
                 self.__init__(self.screen)
-#finish condtions
+
+#checking if all the ltters are guessed using 2 sets
+    def all_letters_guessed(self):
+        letters_in_word = set(self.word.replace(" ", ""))  #removing spaces and making the word a set
+        return letters_in_word.issubset(self.in_word)#cheking if all the words that guessed correcly is whole the word
+
+    #finish condtions
     def update(self):
-        if self.attempts == 0:#if they used all of their attempts
+        if self.attempts == 0:
             self.game_over = True
-        elif  "_" not in self.sub_word:#checking if there aren any more _ in the subword
+        elif self.all_letters_guessed():
             self.game_over = True
 
 #screen clearing and blit to the screen
