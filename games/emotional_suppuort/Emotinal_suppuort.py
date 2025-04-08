@@ -9,9 +9,10 @@ load_dotenv()
 
 # --- Azure OpenAI Setup ---
 
-endpoint = os.getenv("ENDPOINT_URL", "https://nitz-hackathon-2025.openai.azure.com/")
-deployment = os.getenv("DEPLOYMENT_NAME", "gpt-4o")
+endpoint = os.getenv("ENDPOINT_URL")
+deployment = os.getenv("DEPLOYMENT_NAME")
 subscription_key = os.getenv("AZURE_OPENAI_API_KEY")
+
 
 client = AzureOpenAI(
     azure_endpoint=endpoint,
