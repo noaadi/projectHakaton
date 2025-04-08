@@ -8,7 +8,7 @@ from games.trivia.trivia_game import TriviaGame
 from games.flappy_bird.flappy_bird import FlappyBird
 from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 from games.emotional_suppuort.Emotinal_suppuort import EmotionalSupportGame
-
+from games.Dino_Run.dino_run import DinoRun
 
 class MainMenu:
     def __init__(self, screen):
@@ -43,7 +43,8 @@ class MainMenu:
             ("FLAPPY BIRD", FlappyBird),
             ("TIC TAC TOE", TicTacToe),
             ("HANGED MAN", Hanged_man),
-            ("EMOTIONAL SUPPOURT",EmotionalSupportGame)
+            ("EMOTIONAL SUPPOURT",EmotionalSupportGame),
+            ("DINO RUN",DinoRun)
         ]
 
         # this will store the buttons that show on screen
