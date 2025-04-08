@@ -72,7 +72,10 @@ class EmotionalSupportGame(Game):
             self.running = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if self.button_rect.collidepoint(event.pos):
+            if self.return_button.collidepoint(event.pos):
+                self.return_to_menu = True
+                self.running = False
+            elif self.button_rect.collidepoint(event.pos):
                 self.message = "How are you feeling today?"
                 self.collecting_input = True
                 self.user_input = ""
