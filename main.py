@@ -8,7 +8,7 @@ from games.trivia.trivia_game import TriviaGame
 from games.flappy_bird.flappy_bird import FlappyBird
 from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 from games.number_api.Number_api import Number_Facts
-
+from games.Advisor.Advisor_game import Advisor
 
 class MainMenu:
     def __init__(self, screen):
@@ -44,6 +44,7 @@ class MainMenu:
             ("TIC TAC TOE", TicTacToe),
             ("HANGED MAN", Hanged_man),
             ("INTERESTING FACT",Number_Facts)
+            ("TAKE 'N ADVICE", Advisor),
         ]
 
         # this will store the buttons that show on screen
