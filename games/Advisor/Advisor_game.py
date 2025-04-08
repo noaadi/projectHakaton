@@ -3,17 +3,8 @@ import random
 from games.game import Game
 
 MOODS = ["Happy", "Sad", "Stressed", "Motivated"]
+from advices import ADVICES
 
-ADVICES = [
-    {'advice': "Drink water before you're thirsty", 'category': 2},
-    {'advice': "Start before you feel ready", 'category': 3},
-    {'advice': "Write down your thoughts", 'category': 1},
-    {'advice': "If it’s not a 'hell yes,' it’s a 'no'", 'category': 0},
-    {'advice': "Go outside for a walk", 'category': 0},
-    {'advice': "Cry if you need to – it helps", 'category': 1},
-    {'advice': "Take breaks – burnout sucks", 'category': 2},
-    {'advice': "Remember why you started", 'category': 3},
-]
 
 class Advisor(Game):
     def __init__(self, screen):
@@ -27,16 +18,16 @@ class Advisor(Game):
 
         self.mood_buttons = []
         self.new_advice_button = pygame.Rect(250, 300, 300, 60)
-        self.return_button = pygame.Rect(10, 10, 180, 50)
+        self.return_button = pygame.Rect(10, 10, 220, 40)
 
         self.return_to_menu = False
         self.running = True
 
         # Colors
-        self.bg_color = (255, 245, 230)
-        self.text_color = (50, 80, 50)
+        self.bg_color = (156, 189, 156)  # Same as Snake Game's background color
+        self.text_color = (20, 30, 20)  # Same as Snake Game's text color
         self.btn_color = (100, 160, 120)
-        self.ui_color = (180, 140, 100)
+        self.ui_color = (60, 80, 60)
 
     def get_random_advice(self, mood_index):
         filtered = [a['advice'] for a in ADVICES if a['category'] == mood_index]
@@ -96,7 +87,7 @@ class Advisor(Game):
 
     def render_mood_screen(self):
         title = self.font.render("How are you feeling?", True, self.text_color)
-        self.screen.blit(title, (180, 40))
+        self.screen.blit(title, (180, 80))
 
         self.mood_buttons = []
         for i, mood in enumerate(MOODS):
@@ -116,14 +107,14 @@ class Advisor(Game):
     def render_advice_screen(self):
         wrapped = self.wrap_text(self.current_advice, self.font, 600)
         y_offset = 80  # Shift everything down by 80 pixels
-        y = y_offset + 60
+        y = y_offset + 100
         for line in wrapped:
             text_surf = self.font.render(line, True, self.text_color)
             self.screen.blit(text_surf, (100, y))
             y += text_surf.get_height() + 10
 
-         # Lapidos label
-        lapidos_label = self.font.render(" - 'Lapidos'", True, self.text_color)
+        # Lapidos label
+        lapidos_label = self.font.render(" - 'Lapidos says'", True, self.text_color)
         self.screen.blit(lapidos_label, (100, y_offset))
 
         pygame.draw.rect(self.screen, self.btn_color, self.new_advice_button, border_radius=8)

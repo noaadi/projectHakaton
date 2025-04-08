@@ -9,6 +9,7 @@ from games.flappy_bird.flappy_bird import FlappyBird
 from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 from games.number_api.Number_api import Number_Facts
 from games.Advisor.Advisor_game import Advisor
+from games.emotional_support.emotional_support import EmotionalSupportGame
 
 
 class MainMenu:
@@ -28,6 +29,9 @@ class MainMenu:
         self.vol_bar_rect = pygame.Rect(595, 12, 75, 26)
 
         self.games = [
+            ("EMOTIONAL SUPPORT", EmotionalSupportGame),
+            ("TAKE 'N ADVICE", Advisor),
+            ("INTERESTING FACT",Number_Facts),
             ("WORDLE", WordleGame),
             ("SNAKE", SnakeGame),
             ("TRIVIA", TriviaGame),
