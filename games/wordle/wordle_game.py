@@ -39,7 +39,7 @@ class WordleGame(Game):
                         self.message = "You Won!"
                         self.game_over = True
                     elif len(self.already_attempts) == self.max_attempts:
-                        self.message = "You didn't succeed, try again."
+                        self.message = f"You didn't succeed, the word was: {self.target_word}"
                         self.game_over = True
                     else:
                         self.message = "Try Again!"
