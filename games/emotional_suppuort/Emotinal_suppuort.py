@@ -2,9 +2,13 @@ import pygame
 from openai import AzureOpenAI, BadRequestError
 import os
 from games.game import Game
+from dotenv import load_dotenv
+load_dotenv()
+
+AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
 
 # --- Azure OpenAI Setup ---
-AZURE_OPENAI_API_KEY = "8mXeiPME7KA2W9FPIRv8srU6z8ZLwc0qdijUAwCCyDzFU5PIfcptJQQJ99BCAC5T7U2XJ3w3AAABACOGlxHR"
+
 endpoint = os.getenv("ENDPOINT_URL", "https://nitz-hackathon-2025.openai.azure.com/")
 deployment = os.getenv("DEPLOYMENT_NAME", "gpt-4o")
 subscription_key = os.getenv("AZURE_OPENAI_API_KEY", AZURE_OPENAI_API_KEY)
