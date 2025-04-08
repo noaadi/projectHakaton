@@ -9,6 +9,7 @@ from games.flappy_bird.flappy_bird import FlappyBird
 from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 from games.number_api.Number_api import Number_Facts
 from games.Advisor.Advisor_game import Advisor
+from games.Emo.emo import EmotionalSupportGame
 
 class MainMenu:
     def __init__(self, screen):
@@ -44,7 +45,8 @@ class MainMenu:
             ("TIC TAC TOE", TicTacToe),
             ("HANGED MAN", Hanged_man),
             ("INTERESTING FACT",Number_Facts),
-            ("TAKE 'N ADVICE", Advisor)
+            ("TAKE 'N ADVICE", Advisor),
+            ("EMOTIONAL SUPPORT", EmotionalSupportGame)
         ]
 
         # this will store the buttons that show on screen
