@@ -10,6 +10,7 @@ from games.tic_tac_toe.Tic_tac_toe import TicTacToe
 from games.number_api.Number_api import Number_Facts
 from games.Advisor.Advisor_game import Advisor
 from games.emotional_support.emotional_support import EmotionalSupportGame
+from games.Dino_Run.dino_run import DinoRun
 
 class MainMenu:
     def __init__(self, screen):
@@ -35,7 +36,8 @@ class MainMenu:
             ("TRIVIA", TriviaGame),
             ("FLAPPY BIRD", FlappyBird),
             ("TIC TAC TOE", TicTacToe),
-            ("HANGED MAN", Hanged_man)
+            ("HANGED MAN", Hanged_man),
+            ("DINO RUN",DinoRun)
         ]
 
         self.buttons = []
