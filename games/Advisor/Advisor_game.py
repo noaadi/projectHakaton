@@ -114,7 +114,7 @@ class Advisor(Game):
             y += text_surf.get_height() + 10
 
         # Lapidos label
-        lapidos_label = self.font.render(" - 'Lapidos'", True, self.text_color)
+        lapidos_label = self.font.render(" - 'Lapidos says'", True, self.text_color)
         self.screen.blit(lapidos_label, (100, y_offset))
 
         pygame.draw.rect(self.screen, self.btn_color, self.new_advice_button, border_radius=8)
