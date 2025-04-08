@@ -43,8 +43,8 @@ class MainMenu:
             ("FLAPPY BIRD", FlappyBird),
             ("TIC TAC TOE", TicTacToe),
             ("HANGED MAN", Hanged_man),
-            ("INTERESTING FACT",Number_Facts)
-            ("TAKE 'N ADVICE", Advisor),
+            ("INTERESTING FACT",Number_Facts),
+            ("TAKE 'N ADVICE", Advisor)
         ]
 
         # this will store the buttons that show on screen
