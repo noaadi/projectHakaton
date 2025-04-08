@@ -4,16 +4,7 @@ from games.game import Game
 
 MOODS = ["Happy", "Sad", "Stressed", "Motivated"]
 
-ADVICES = [
-    {'advice': "Drink water before you're thirsty", 'category': 2},
-    {'advice': "Start before you feel ready", 'category': 3},
-    {'advice': "Write down your thoughts", 'category': 1},
-    {'advice': "If it’s not a 'hell yes,' it’s a 'no'", 'category': 0},
-    {'advice': "Go outside for a walk", 'category': 0},
-    {'advice': "Cry if you need to – it helps", 'category': 1},
-    {'advice': "Take breaks – burnout sucks", 'category': 2},
-    {'advice': "Remember why you started", 'category': 3},
-]
+from advices import ADVICES
 
 class Advisor(Game):
     def __init__(self, screen):
